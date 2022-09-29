@@ -1,0 +1,21 @@
+on: push
+
+jobs:
+  vs:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/setup-python@v4.2.0
+      - run: pip install meson
+      - uses: actions/checkout@v3.0.2
+      - name: build
+        run: |
+          meson setup --backend=vs build
+          meson compile -C build
+      - name: test
+        run: meson test -C build
+      - uses: actions/upload-artifact@v3.1.0
+        if: always()
+        with:
+          name: meson-logs-vs
+          path: build/meson-logs
+
