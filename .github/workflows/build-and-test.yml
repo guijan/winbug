@@ -17,5 +17,5 @@ jobs:
         if: always()
         with:
           name: meson-logs-vs
-          path: build/meson-logs
+          path: build
 
